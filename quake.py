@@ -3,9 +3,19 @@ from math import radians, cos, sin, asin, sqrt
 from datetime import timedelta, datetime
 import time
 
+from geopy.geocoders import Nominatim
+
+
 URL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
 EARTH_RADIUS_MILES = 3959
-INTERANA_LONG_LAT = [-122.166213, 37.452234]
+
+
+def get_coordinates(address="68 Willow Rd Menlo Park CA"):
+    geolocator = Nominatim()
+    loc = geolocator.geocode(address)
+    return [loc.longitude, loc.latitude]
+
+REFERENCE_COORDINATES = get_coordinates()
 
 
 class quake():
@@ -16,6 +26,7 @@ class quake():
         self.place = place
         self.event_time = event_time
         self.distance = distance
+
 
 def gethighestmagnitude(url=URL):
     q = quake()
@@ -52,7 +63,7 @@ def lessthanaweek(ep_time):
         return False
 
 
-def haversine_distance(loc, ref_loc = INTERANA_LONG_LAT):
+def haversine_distance(loc, ref_loc = REFERENCE_COORDINATES):
     lon1, lat1 = loc[:2]
     lon2, lat2 = ref_loc
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])

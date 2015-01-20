@@ -1,5 +1,5 @@
 # misc
-Part 1:
+## Part 1:
 
 For brevity the thought process is described as a series of steps.
 
@@ -23,7 +23,7 @@ For brevity the thought process is described as a series of steps.
 
 _____________________________________________________________________________________________________________________
 
-Part 2:
+## Part 2:
 
 jq is a lightweight commandline JSON processor.
 We can use a combination of jq, curl and a few other unix utilities to get the desired result.
@@ -31,7 +31,7 @@ We can use a combination of jq, curl and a few other unix utilities to get the d
 A sample code would look like this. (Although this solution is not nearly complete, it gives an idea of how some loose scripting could accomplish the desired end result.
 
 """
-#! /bin/bash
+\#! /bin/bash
 curl 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson' > eq.json
 NUMOFLINES=$(wc -l < eq.json)
 highmag=0
@@ -51,7 +51,7 @@ echo $highmag
 """
 _____________________________________________________________________________________________________________________
 
-Part 3:
+## Part 3:
 
 There are many standard tools to convert JSON to CSV. 
 However if we have a JSON file and an outline file. We can use ordered dictionaries in python to process the data rows. This would eventually transform into the rows of a CSV file.

@@ -31,19 +31,33 @@ We can use a combination of jq, curl and a few other unix utilities to get the d
 A sample code would look like this. (Although this solution is not nearly complete, it gives an idea of how some loose scripting could accomplish the desired end result.
 
 \#! /bin/bash
+
 curl 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson' > eq.json
+
 NUMOFLINES=$(wc -l < eq.json)
+
 highmag=0
+
 for i in `seq 1 $NUMOFLINES`; do
-   # The line nelow can be used if we want to get more information out of the json object
-   # cat eq.json | jq '.features['$i'].properties | {mag, time, place}'
+
+   \# The line below can be used if we want to get more information out of the json object
+   
+   \# cat eq.json | jq '.features['$i'].properties | {mag, time, place}'
+   
     mag=$(cat eq.json | jq '.features['$i'].properties.mag')
+    
     if [ "$mag" > "$highmag" ]; then
+    
         echo $mag
+        
         highmag=$mag
+        
     fi
+    
 done
+
 echo $highmag
+
 _____________________________________________________________________________________________________________________
 
 ## Part 3:
